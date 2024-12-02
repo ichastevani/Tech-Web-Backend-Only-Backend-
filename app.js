@@ -1,16 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
-const moment = require('moment-timezone'); // Import moment-timezone
+const moment = require('moment-timezone'); 
 
 const app = express();
 app.use(bodyParser.json());
 
-// Route untuk membuat catatan baru
 app.post('/notes', (req, res) => {
   const { title, note } = req.body;
 
-  // Mendapatkan waktu saat ini dalam zona waktu lokal (misalnya, WIB)
   const currentDatetime = moment().tz("Asia/Jakarta").format("YYYY-MM-DD HH:mm:ss");
 
   const query = 'INSERT INTO notes (title, note, datetime) VALUES (?, ?, ?)';
@@ -22,7 +20,7 @@ app.post('/notes', (req, res) => {
         id: result.insertId,
         title,
         note,
-        datetime: currentDatetime,  // Menampilkan waktu yang baru saja dimasukkan
+        datetime: currentDatetime,  
       });
     }
   });
